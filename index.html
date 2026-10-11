@@ -3,52 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vectra Plomería & Acabados | Pasto, Nariño</title>
+    <title>Vectra Plomería & Acabados | Pasto</title>
+    <!-- Fuentes Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #0088ff;
+            --primary-dark: #0055b3;
+            --accent: #00e676;
+            --bg-dark: #0a0f1d;
+            --card-bg: #131b2e;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #0f172a; color: #f8fafc; line-height: 1.6; padding: 20px; }
-        .header { text-align: center; padding: 2rem 1rem; border-bottom: 1px solid #334155; margin-bottom: 2rem; }
-        .header h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 0.5rem; }
-        .header p { color: #94a3b8; font-size: 1.1rem; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .card { background: #1e293b; padding: 2rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .card h2 { color: #38bdf8; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
-        ul { list-style: none; }
-        ul li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
-        ul li::before { content: "✓"; color: #22c55e; font-weight: bold; }
-        .btn-whatsapp { display: inline-block; background-color: #22c55e; color: white; padding: 0.9rem 1.8rem; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; text-align: center; width: 100%; margin-top: 1rem; transition: background 0.2s; }
-        .btn-whatsapp:hover { background-color: #16a34a; }
-        .footer { text-align: center; color: #64748b; font-size: 0.9rem; margin-top: 3rem; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(10, 15, 29, 0.75) 0%, rgba(10, 15, 29, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            padding: 2rem 1rem;
+        }
+
+        .hero-content { max-width: 900px; z-index: 2; }
+        .hero-title { font-family: 'Montserrat', sans-serif; font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 900; text-transform: uppercase; letter-spacing: -1px; line-height: 1.1; margin-bottom: 1rem; background: linear-gradient(90deg, #38bdf8, #0088ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--text-muted); margin-bottom: 2rem; font-weight: 300; }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #00e676, #00b0ff);
+            color: #04121e;
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 230, 118, 0.5); }
+
+        /* SECCIONES Y CONTENEDORES */
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-header h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        /* TARJETAS DE SERVICIOS */
+        .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .service-card:hover { transform: translateY(-8px); border-color: var(--primary); }
+        .service-img { height: 200px; width: 100%; object-fit: cover; }
+        .service-body { padding: 1.8rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .service-icon { width: 50px; height: 50px; background: rgba(0, 136, 255, 0.15); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+        .service-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; color: #fff; }
+        .service-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* DESTACADOS Y COBERTURA */
+        .info-banner {
+            background: linear-gradient(135deg, #131b2e 0%, #1e293b 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        .info-item i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .info-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .info-item p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* FOOTER & WHATSAPP FLOTANTE */
+        footer { text-align: center; padding: 2.5rem 1rem; background-color: #060913; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.9rem; }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Vectra Plomería & Acabados</h1>
+            <p class="hero-subtitle">Especialistas en redes hidráulicas, reparación de fugas y acabados arquitectónicos en Pasto, Nariño.</p>
+            <a href="https://wa.me/573000000000?text=Hola%20Vectra,%20requiero%20asistencia%20profesional" class="btn-cta" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Solicitar Cotización
+            </a>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
     <div class="container">
-        <header class="header">
-            <h1>Vectra Plomería & Acabados</h1>
-            <p>Soluciones profesionales para el hogar y comercio en Pasto, Nariño</p>
-        </header>
-
-        <div class="card">
+        <div class="section-header">
             <h2>Nuestros Servicios</h2>
-            <ul>
-                <li>Instalación y mantenimiento de redes sanitarias e hidráulicas.</li>
-                <li>Detección y reparación de fugas de agua y filtraciones.</li>
-                <li>Instalación de aparatos sanitarios, grifería y calentadores.</li>
-                <li>Acabados arquitectónicos, enchapado y remodelación general.</li>
-                <li>Atención de emergencias de plomería.</li>
-            </ul>
-            <a href="https://wa.me/573000000000?text=Hola%20Vectra,%20necesito%20una%20cotizaci%C3%B3n" class="btn-whatsapp" target="_blank">Escribir por WhatsApp</a>
+            <p>Soluciones integrales con calidad garantizada para hogares y comercios</p>
         </div>
 
-        <div class="card">
-            <h2>Cobertura y Horarios</h2>
-            <p><strong>Ubicación:</strong> Pasto, Nariño, Colombia.</p>
-            <p><strong>Horarios:</strong> Lunes a Sábado - Atención prioritaria.</p>
-        </div>
+        <div class="grid-services">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Redes Sanitarias">
+                <div class="service-body">
+                    <div class="service-icon"><i class="fa-solid fa-faucet-drip"></i></div>
+                    <h3 class="service-title">Redes Hidráulicas y Sanitarias</h3>
+                    <p class="service-desc">Instalación y mantenimiento preventivo de tubos, desagües y redes de agua potable.</p>
+                </div>
+            </div>
 
-        <footer class="footer">
-            <p>&copy; 2026 Vectra Plomería & Acabados. Todos los derechos reservados.</p>
-        </footer>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Detección de Fugas">
+                <div class="service-body">
+                    <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h3 class="service-title">Reparación de Fugas</h3>
+                    <p class="service-desc">Localización precisa y corrección inmediata de filtraciones y humedades.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Acabados">
+                <div class="service-body">
+                    <div class="service-icon"><i class="fa-solid fa-paint-roller"></i></div>
+                    <h3 class="service-title">Acabados y Enchapado</h3>
+                    <p class="service-desc">Instalación experta de cerámica, porcelanato y acabados generales de alta gama.</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- BANNER DE DATOS Y UBICACIÓN -->
+    <div class="container" style="padding-top: 0;">
+        <div class="info-banner">
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3>Ubicación</h3>
+                <p>Pasto, Nariño - Colombia</p>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-clock"></i>
+                <h3>Horarios</h3>
+                <p>Lunes a Sábado - Atención Prioritaria</p>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Garantía</h3>
+                <p>Servicios 100% Profesionales</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/573000000000?text=Hola%20Vectra,%20necesito%20asistencia" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Vectra Plomería & Acabados. Todos los derechos reservados.</p>
+    </footer>
+
 </body>
 </html>
